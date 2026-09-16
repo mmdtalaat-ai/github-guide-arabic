@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git & GitHub — الشرح الكامل</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #0a0e1a;
+    color: #e0e6f0;
+    direction: rtl;
+    min-height: 100vh;
+    padding: 32px 20px;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #B8922A;
+    border-bottom: 1px solid #B8922A44;
+    padding-bottom: 14px;
+    margin-bottom: 32px;
+    letter-spacing: 0.5px;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #B8922A;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2 .num {
+    background: #B8922A;
+    color: #0a0e1a;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .card {
+    background: #111827;
+    border: 1px solid #1e2d45;
+    border-radius: 0;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+
+  .card p, .card li {
+    font-size: 0.97rem;
+    line-height: 2;
+    color: #c8d4e8;
+  }
+
+  .card ul, .card ol { padding-right: 18px; }
+  .card li { margin-bottom: 4px; }
+
+  .subhead {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #60a5fa;
+    margin: 20px 0 10px;
+  }
+
+  /* Flow Diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0 12px;
+    flex-wrap: wrap;
+  }
+
+  .flow-box {
+    background: #0f172a;
+    border: 1px solid #B8922A55;
+    padding: 12px 18px;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .flow-box .label {
+    font-size: 0.78rem;
+    color: #7A88A8;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .flow-box .name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e0e6f0;
+  }
+
+  .flow-box .cmd {
+    font-size: 0.75rem;
+    color: #B8922A;
+    font-family: monospace;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .arrow {
+    color: #B8922A;
+    font-size: 1.4rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* Diff numbers box */
+  .diff-demo {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-family: 'Courier New', monospace;
+    direction: ltr;
+    text-align: left;
+  }
+
+  .diff-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+  }
+
+  .diff-nums {
+    display: flex;
+    gap: 8px;
+    min-width: 80px;
+  }
+
+  .added { color: #3fb950; }
+  .removed { color: #f85149; }
+  .neutral { color: #7A88A8; }
+  .diff-sym { font-weight: 700; min-width: 14px; }
+  .diff-code { color: #c9d1d9; }
+
+  /* Decision Box */
+  .decision {
+    border: 1px solid #1e3a5f;
+    padding: 18px 22px;
+    margin: 12px 0;
+    background: #0c1525;
+  }
+
+  .decision .q {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #60a5fa;
+    margin-bottom: 12px;
+  }
+
+  .decision-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .yes-box, .no-box {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 16px;
+    border-radius: 0;
+  }
+
+  .yes-box {
+    background: #0f2718;
+    border: 1px solid #3fb95055;
+  }
+
+  .no-box {
+    background: #1f0f0f;
+    border: 1px solid #f8514955;
+  }
+
+  .yes-box .badge { color: #3fb950; font-weight: 700; margin-bottom: 8px; display: block; }
+  .no-box .badge { color: #f85149; font-weight: 700; margin-bottom: 8px; display: block; }
+
+  .yes-box p, .no-box p {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: #b0bcc8;
+  }
+
+  /* Commit flow visual */
+  .commit-flow {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .commit-step {
+    flex: 1;
+    min-width: 160px;
+    padding: 16px 14px;
+    background: #0f172a;
+    border: 1px solid #1e2d45;
+    text-align: center;
+    position: relative;
+  }
+
+  .commit-step .step-num {
+    background: #B8922A22;
+    color: #B8922A;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .commit-step .step-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e0e6f0;
+    margin-bottom: 6px;
+  }
+
+  .commit-step .step-cmd {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: #B8922A;
+    background: #0a0e1a;
+    padding: 4px 8px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  .commit-step .step-desc {
+    font-size: 0.8rem;
+    color: #7A88A8;
+    line-height: 1.7;
+  }
+
+  .step-arrow {
+    display: flex;
+    align-items: center;
+    color: #B8922A;
+    font-size: 1.2rem;
+    padding: 0 4px;
+  }
+
+  /* Rule box */
+  .rule-box {
+    background: #0a1628;
+    border-right: 3px solid #B8922A;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+
+  .rule-box p {
+    font-size: 0.93rem;
+    line-height: 1.9;
+    color: #c0cce0;
+  }
+
+  .rule-box strong { color: #B8922A; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 1px solid #1e2d45; }
+
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: #7A88A8;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .tab.active {
+    color: #B8922A;
+    border-bottom-color: #B8922A;
+  }
+
+  .tab-content { display: none; padding: 20px 0 0; }
+  .tab-content.active { display: block; }
+
+  /* Summary table */
+  table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+  th {
+    background: #0f172a;
+    color: #B8922A;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    text-align: right;
+    border-bottom: 1px solid #1e2d45;
+  }
+  td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: #c0cce0;
+    border-bottom: 1px solid #0f172a;
+    line-height: 1.8;
+  }
+  tr:nth-child(even) td { background: #0c1420; }
+
+  code {
+    font-family: monospace;
+    color: #B8922A;
+    background: #0a0e1a;
+    padding: 2px 6px;
+    font-size: 0.85em;
+  }
+
+  .highlight { color: #60a5fa; }
+  .gold { color: #B8922A; font-weight: 600; }
+
+  .tip {
+    background: #0c1a2e;
+    border: 1px dashed #B8922A55;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 0.87rem;
+    color: #a0b0c8;
+    line-height: 1.8;
+  }
+
+  .tip strong { color: #B8922A; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Git & GitHub — الدليل الكامل لمحمد</h1>
+
+  <!-- SECTION 1: What is Git / GitHub -->
+  <div class="card">
+    <h2><span class="num">١</span> Git مقابل GitHub — إيه الفرق؟</h2>
+
+    <p style="margin-bottom:16px">
+      GitHub منصة تخزين وإدارة للمشاريع الرقمية — الفكرة بسيطة: بدل ما كل واحد يحتفظ بنسخة من مشروعه على جهازه بس، بيترفع على GitHub، فيبقى محفوظ ومنظم وقابل للمشاركة والتعديل مع آخرين، من غير ما تضيع أي نسخة سابقة منه.
+    </p>
+
+    <ul style="margin-bottom:18px">
+      <li><strong class="gold">حفظ كل نسخة من المشروع:</strong> أي تعديل تعمله يُسجَّل، فتقدر ترجع لأي نسخة سابقة في أي وقت</li>
+      <li><strong class="gold">العمل الجماعي:</strong> أكتر من شخص يقدر يشتغل على نفس المشروع من مكانه، وGitHub يدمج التعديلات بدون ما يضيع شغل حد</li>
+      <li><strong class="gold">المشاركة والنشر:</strong> تقدر تعرض مشروعك للعالم (Public)، أو تخليه مقفول على فريقك فقط (Private)</li>
+      <li><strong class="gold">الأتمتة:</strong> تقدر تخلي GitHub ينفذ خطوات تلقائية (زي فحص الكود أو نشر التحديثات) بدون تدخل يدوي</li>
+    </ul>
+
+    <div class="flow">
+      <div class="flow-box">
+        <span class="label">على جهازك</span>
+        <span class="name">Git</span>
+        <span class="cmd">أداة تتبع التغييرات محلياً</span>
+      </div>
+      <div class="arrow">←</div>
+      <div class="flow-box">
+        <span class="label">على الإنترنت</span>
+        <span class="name">GitHub</span>
+        <span class="cmd">مستودع سحابي للحفظ والمشاركة</span>
+      </div>
+      <div class="arrow">←</div>
+      <div class="flow-box">
+        <span class="label">على السيرفر</span>
+        <span class="name">Hetzner</span>
+        <span class="cmd">بيشغّل الكود الفعلي</span>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top:16px">
+      <p><strong>Git</strong> = مؤرشيف محلي — يحفظ كل تغيير في ملفاتك على جهازك<br>
+      <strong>GitHub</strong> = خزنة سحابية — نسخة احتياطية على الإنترنت بإمكانية العودة لأي نقطة<br>
+      <strong>السيرفر (Hetzner)</strong> = المكان اللي الكود بيشتغل فيه فعلاً أمام المستخدمين</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 8 tabs -->
+  <div class="card">
+    <h2><span class="num">٢</span> التبويبات الثمانية في أي مشروع على GitHub</h2>
+
+    <p style="margin-bottom:14px; color:#7A88A8; font-size:0.9rem">كل مشروع (Repository) على GitHub بيتقسم لتبويبات، كل واحد له غرض مختلف:</p>
+
+    <table>
+      <thead><tr><th>التبويب</th><th>الغرض</th></tr></thead>
+      <tbody>
+        <tr><td><code>Code</code></td><td>مكان الملفات الفعلية للمشروع — هنا تشوف وتقرأ المحتوى</td></tr>
+        <tr><td><code>Issues</code></td><td>قائمة المشاكل والطلبات المفتوحة على المشروع (بلاغ عن خطأ، أو اقتراح ميزة)</td></tr>
+        <tr><td><code>Pull Requests</code></td><td>طلبات تعديل مُقترحة من أشخاص آخرين على المشروع، بانتظار موافقة صاحبه</td></tr>
+        <tr><td><code>Projects</code></td><td>لوحة تنظيم المهام (زي لوحة Trello) لمتابعة تقدم العمل</td></tr>
+        <tr><td><code>Wiki</code></td><td>صفحات توثيق إضافية يكتبها صاحب المشروع لشرح تفاصيل أعمق</td></tr>
+        <tr><td><code>Discussions</code></td><td>مساحة نقاش عامة بين المستخدمين، غير مرتبطة بمشكلة محددة</td></tr>
+        <tr><td><code>Actions</code></td><td>الأتمتة — خطوات تُنفَّذ تلقائياً (مثل فحص أو نشر) عند حدوث تغيير معين</td></tr>
+        <tr><td><code>Settings</code></td><td>إعدادات المشروع: من له صلاحية الوصول، هل هو Public أم Private، وغيرها</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 3: general workflow -->
+  <div class="card">
+    <h2><span class="num">٣</span> دورة العمل الأساسية لمشروع على GitHub</h2>
+
+    <p style="margin-bottom:12px">هكذا يعمل مشروع نموذجي على GitHub، خطوة بخطوة:</p>
+
+    <ol>
+      <li><strong class="gold">إنشاء المشروع (Repository):</strong> صاحب الفكرة يفتح مساحة جديدة على GitHub لمشروعه</li>
+      <li><strong class="gold">رفع الملفات الأولى:</strong> يضيف الملفات الأساسية (كود، صور، توثيق)</li>
+      <li><strong class="gold">التعديل المستمر:</strong> كل مرة يغيّر شيئاً، يحفظ التغيير كـ Commit (لقطة موثقة للتعديل)</li>
+      <li><strong class="gold">التفرع (اختياري):</strong> لو حد تاني عايز يجرب تعديل بدون ما يأثر على النسخة الأصلية، يعمل Branch منفصل</li>
+      <li><strong class="gold">الدمج:</strong> بعد التأكد من أن التعديل سليم، يتم دمجه (Merge) في النسخة الرئيسية (main)</li>
+      <li><strong class="gold">الاستخدام:</strong> أي شخص يقدر يحمّل (Clone) نسخة من المشروع ليستخدمه على جهازه</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 4: glossary -->
+  <div class="card">
+    <h2><span class="num">٤</span> المفاهيم الأساسية — قاموس المصطلحات</h2>
+
+    <table>
+      <thead><tr><th>المصطلح</th><th>الشرح المبسط</th></tr></thead>
+      <tbody>
+        <tr><td><code>Repository</code></td><td>المشروع نفسه — المجلد الكامل الذي يحتوي كل ملفاته وتاريخ تعديلاته</td></tr>
+        <tr><td><code>Branch</code></td><td>نسخة موازية من المشروع، تُستخدم للتجربة بدون التأثير على النسخة الأساسية</td></tr>
+        <tr><td><code>Commit</code></td><td>«لقطة» محفوظة لحالة معينة من الملفات، مع رسالة توضح ماذا تغيّر</td></tr>
+        <tr><td><code>Merge</code></td><td>دمج تعديلات من Branch منفصل إلى النسخة الرئيسية للمشروع</td></tr>
+        <tr><td><code>Clone</code></td><td>تحميل نسخة كاملة من المشروع على جهازك الشخصي</td></tr>
+        <tr><td><code>Fork</code></td><td>نسخ مشروع شخص آخر إلى حسابك الخاص، لتعديله بحرية دون التأثير على الأصلي</td></tr>
+        <tr><td><code>Pull Request</code></td><td>طلب رسمي لدمج تعديل اقترحه شخص ما، بانتظار مراجعة وموافقة صاحب المشروع</td></tr>
+        <tr><td><code>Issue</code></td><td>تذكرة لبلاغ عن مشكلة أو اقتراح تحسين على المشروع</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: The 4 Commands -->
+  <div class="card">
+    <h2><span class="num">٥</span> الأوامر الأربعة اللي بيستخدمها محمد فعلياً</h2>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">الخطوة ١</span>
+        <div class="step-title">git status</div>
+        <span class="step-cmd">git status</span>
+        <div class="step-desc">«كشف حساب» — يعرض كل الملفات اللي اتغيرت ولسه ما اتحفظتش</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">الخطوة ٢</span>
+        <div class="step-title">commit</div>
+        <span class="step-cmd">git commit -m "..."</span>
+        <div class="step-desc">«لقطة فوتوغرافية» — يحفظ التغييرات في تاريخ المشروع محلياً</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">الخطوة ٣</span>
+        <div class="step-title">push</div>
+        <span class="step-cmd">git push</span>
+        <div class="step-desc">«رفع الصورة» — يبعت اللقطة المحفوظة إلى GitHub على الإنترنت</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">الخطوة ٤</span>
+        <div class="step-title">deploy</div>
+        <span class="step-cmd">./deploy.sh</span>
+        <div class="step-desc">«التطبيق الفعلي» — يسحب الكود من GitHub وينقله للسيرفر ليشتغل</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>تشبيه بسيط:</strong> تخيل مشروع تصوير — git status = شوف الصور اللي التقطتها | commit = اختار صورة وحفظها | push = ارفعها على Lightroom Cloud | deploy = اطبعها للعميل
+    </div>
+  </div>
+
+  <!-- SECTION 6: The Numbers -->
+  <div class="card">
+    <h2><span class="num">٦</span> الأرقام الخضرا والحمرا — معناها إيه؟</h2>
+
+    <p style="margin-bottom:14px; color:#7A88A8; font-size:0.9rem">اللي بتشوفه أسفل كل سطر في Claude Code أو Terminal بيبدو كده:</p>
+
+    <div class="diff-demo">
+      <div class="diff-line">
+        <div class="diff-nums">
+          <span class="added">+45</span>
+          <span class="removed">-12</span>
+        </div>
+        <span class="diff-sym neutral">▌</span>
+        <span class="diff-code neutral">workflow-agent.json</span>
+      </div>
+      <div class="diff-line">
+        <div class="diff-nums">
+          <span class="added">+8</span>
+          <span class="removed">-0</span>
+        </div>
+        <span class="diff-sym neutral">▌</span>
+        <span class="diff-code neutral">config/settings.env</span>
+      </div>
+      <div class="diff-line">
+        <div class="diff-nums">
+          <span class="added">+120</span>
+          <span class="removed">-89</span>
+        </div>
+        <span class="diff-sym neutral">▌</span>
+        <span class="diff-code neutral">agents/sales-agent.js</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الرمز</th>
+          <th>معناه</th>
+          <th>مثال</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="added" style="font-family:monospace;font-size:1rem">+45</span></td>
+          <td>عدد الأسطر اللي <strong>أُضيفت</strong> أو تعدّلت في الملف</td>
+          <td>كلود أضاف 45 سطر جديد</td>
+        </tr>
+        <tr>
+          <td><span class="removed" style="font-family:monospace;font-size:1rem">-12</span></td>
+          <td>عدد الأسطر اللي <strong>اتحذفت</strong> أو استُبدلت</td>
+          <td>كلود شال 12 سطر قديم</td>
+        </tr>
+        <tr>
+          <td><span class="neutral" style="font-family:monospace;font-size:1rem">−</span> (ناقص)</td>
+          <td>علامة الفصل بين الرقمين فقط، مش عمليات</td>
+          <td>تجاهلها</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="rule-box" style="margin-top:18px">
+      <p><strong>ليه الأرقام بتنقص بعد الـ push؟</strong><br>
+      لأن Git بيضغط (compress) التغييرات ويحسب الـ «delta» الفعلي — الفرق الصافي بين النسخة القديمة والجديدة. اللي بتشوفه قبل الـ push هو العدد الخام. بعد الرفع GitHub بيعرض فقط الأسطر اللي فعلاً تغيرت مقارنة بآخر commit — فالأرقام بتبان أقل لأن الحساب أدق.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 7: When to approve or reject -->
+  <div class="card">
+    <h2><span class="num">٧</span> امتى توافق وامتى ترفض؟</h2>
+
+    <div class="decision">
+      <div class="q">📋 كلود كود بيطلب commit — توافق ولا ترفض؟</div>
+      <div class="decision-row">
+        <div class="yes-box">
+          <span class="badge">✓ وافق</span>
+          <p>
+            — التعديل اللي طلبته أنت بنفسك<br>
+            — الملفات المذكورة منطقية للتغيير<br>
+            — رسالة الـ commit واضحة ومحددة<br>
+            — git status يعرض ملفات متوقعة فقط<br>
+            — في مرحلة تطوير عادية
+          </p>
+        </div>
+        <div class="no-box">
+          <span class="badge">✗ ارفض</span>
+          <p>
+            — ملفات غير متوقعة في git status<br>
+            — رسالة الـ commit مش واضحة<br>
+            — أي تعديل على ملفات .env أو secrets<br>
+            — بعد session لم تراجع فيها الكود<br>
+            — كلود بيقترح commit بدون طلب منك
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top:14px">
+      <p><strong>إجابة سؤالك الأساسي:</strong><br>
+      «لو التعديل مسموح فليه أرفض من البداية؟»<br><br>
+      الرفض مش عن التعديل نفسه — هو عن <strong>التوقيت والسياق</strong>. القاعدة في CLAUDE.md عندك موجودة عشان كلود محتاج <em>موافقتك</em> قبل ما يسجّل أي لقطة في تاريخ المشروع. لو وافقت على commit وفيه ملفات غلط أو رسالة مش دقيقة — التاريخ بيتسجل ومش ممكن تمحيه من GitHub بسهولة. الـ commit هو «وثيقة رسمية» في سجل المشروع.</p>
+    </div>
+
+    <div class="tabs" style="margin-top:20px">
+      <button class="tab active" onclick="showTab('t1')">الحالات العملية</button>
+      <button class="tab" onclick="showTab('t2')">تأثير الرفض</button>
+      <button class="tab" onclick="showTab('t3')">مصادر التعلم</button>
+    </div>
+
+    <div id="t1" class="tab-content active">
+      <table>
+        <thead><tr><th>الموقف</th><th>قرارك</th><th>السبب</th></tr></thead>
+        <tbody>
+          <tr><td>كلود أصلح workflow وطلب commit</td><td class="added">وافق</td><td>تعديل محدد وطلبته أنت</td></tr>
+          <tr><td>كلود يقترح commit فجأة بدون طلب</td><td class="removed">ارفض</td><td>راجع git status الأول</td></tr>
+          <tr><td>في git status ملفات .env اتغيرت</td><td class="removed">ارفض فوراً</td><td>Secrets لا تُرفع على GitHub أبداً</td></tr>
+          <tr><td>الـ push مكسور وكلود يقترح force push</td><td class="removed">ارفض</td><td>force push يمسح تاريخ الريبو</td></tr>
+          <tr><td>إضافة agent جديد وكلود أنهى الكود</td><td class="added">وافق</td><td>بعد مراجعة git status</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="t2" class="tab-content">
+      <div class="rule-box">
+        <p><strong>لو رفضت — إيه اللي بيحصل؟</strong><br><br>
+        لا شيء يضيع. التعديلات موجودة على جهازك (أو السيرفر) لكنها <em>مش مسجّلة</em> في تاريخ Git. كلود ممكن يعيد نفس العملية أو يكمّل التعديل وبعدين تطلب commit لما تكون مستعد.<br><br>
+        <strong>لو وافقت على commit غلط — إيه اللي بيحصل؟</strong><br><br>
+        اللقطة اتسجلت في التاريخ. ممكن تعملها undo بـ <code>git revert</code> لكنها بتضيف commit جديد. مش نهاية العالم — لكن بيعقّد السجل.</p>
+      </div>
+    </div>
+
+    <div id="t3" class="tab-content">
+      <table>
+        <thead><tr><th>المصدر</th><th>النوع</th><th>المستوى</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Git — الموقع الرسمي</strong><br><code>git-scm.com/book/ar/v2</code></td>
+            <td>كتاب نصي مجاني</td>
+            <td>مبتدئ → متوسط</td>
+          </tr>
+          <tr>
+            <td><strong>Learn Git Branching</strong><br><code>learngitbranching.js.org</code></td>
+            <td>تفاعلي بالمتصفح</td>
+            <td>مبتدئ — موصى به جداً</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Skills</strong><br><code>skills.github.com</code></td>
+            <td>مسارات تدريبية</td>
+            <td>مبتدئ → متوسط</td>
+          </tr>
+          <tr>
+            <td><strong>Fireship — Git in 100 Seconds</strong><br>YouTube</td>
+            <td>فيديو قصير إنجليزي</td>
+            <td>مراجعة سريعة</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: Security -->
+  <div class="card">
+    <h2><span class="num">٨</span> الأمان والحماية — قبل ما تجرب أي مشروع</h2>
+
+    <div class="rule-box">
+      <p><strong>هل المشاريع آمنة؟</strong><br>
+      بشكل افتراضي، <strong>مجرد فتح صفحة مشروع على GitHub أو قراءة ملفاته لا يشغّل أي شيء على جهازك</strong>، سواء كنت على الموبايل أو الديسك توب. الخطر الحقيقي يبدأ فقط لو حمّلت (Clone) المشروع، وثبّته، وشغّلت الكود فعلياً على جهازك. طول ما أنت بتقرأ وتتصفح بس، أنت في أمان مية بالمية.</p>
+    </div>
+
+    <p class="subhead">فحص كامل قبل تثبيت أي مشروع — خطوة بخطوة</p>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">١</span>
+        <div class="step-title">تبويب Code</div>
+        <div class="step-desc">افتح صفحة المشروع وادخل عليه</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٢</span>
+        <div class="step-title">اقرأ README كاملاً</div>
+        <div class="step-desc">مشروع محترم بيشرح غرضه بوضوح — شرح غامض أول علامة تحذير</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٣</span>
+        <div class="step-title">تاريخ آخر تحديث</div>
+        <div class="step-desc">مشروع مهجور من سنين = ثغرات محدش بيصلحها</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٤</span>
+        <div class="step-title">تبويب Commits</div>
+        <div class="step-desc">نشاط منتظم من أكتر من شخص = مؤشر ثقة</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٥</span>
+        <div class="step-title">ملف License</div>
+        <div class="step-desc">غيابه مش خطر لوحده، لكنه مؤشر جدية إضافي</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٦</span>
+        <div class="step-title">تبويب Issues</div>
+        <div class="step-desc">هل صاحب المشروع بيرد على بلاغات الأمان ولا بيتجاهلها؟</div>
+      </div>
+    </div>
+
+    <p class="subhead">ملفات التجسس — إزاي تعرفها كغير تقني</p>
+    <ul>
+      <li>أسماء ملفات غريبة أو مشفّرة لا تدل على وظيفتها، خصوصاً في مكان غير متوقع للمشروع</li>
+      <li>طلب صلاحيات لا تتناسب مع وظيفة الأداة — مثلاً أداة تحويل صور بتطلب وصول لجهات الاتصال أو الرسائل</li>
+      <li>روابط تحميل خارجية غامضة داخل التعليمات، بدل ما يكون كل شيء داخل صفحة GitHub نفسها</li>
+      <li>حساب المُنشئ نفسه حديث جداً، بدون أي مشاريع أو نشاط سابق، ومشروعه الوحيد فيه طلب صلاحيات واسعة</li>
+      <li>ملفات بامتدادات قابلة للتنفيذ زي <code>.exe</code> أو <code>.sh</code> — لا تحمّلها ولا تشغّلها إلا لو فاهم وظيفتها بالضبط</li>
+    </ul>
+
+    <p class="subhead">أوامر Terminal — قاعدة أساسية تحميك دايماً</p>
+    <p style="margin-bottom:10px">لا تقم أبداً بنسخ ولصق أي أمر Terminal من مصدر لا تثق فيه دون أن تفهم ماذا يفعل، حتى لو كان مذكوراً داخل README نفسه. تحديداً، خد بالك من:</p>
+    <ul>
+      <li>أي أمر يبدأ بـ <code>sudo</code> (بيطلب صلاحيات إدارية كاملة على جهازك)</li>
+      <li>أي أمر بيحمّل ملف من رابط غير معروف وينفذه مباشرة في نفس الوقت</li>
+      <li>أي أمر طويل ومعقد ومش مشروح ليه سطر بسطر</li>
+    </ul>
+
+    <div class="rule-box" style="margin-top:14px">
+      <p><strong>القاعدة الذهبية:</strong> لو مش فاهم الأمر بيعمل إيه بالظبط، لا تنفذه — اسأل قبل ما تنفذ.</p>
+    </div>
+
+    <p class="subhead">قبل إضافة أي مشروع جديد مستقبلاً</p>
+    <ol>
+      <li>طبّق الخطوات الستة اللي فوق (README، تاريخ التحديث، Commits، License، Issues)</li>
+      <li>لو كل شيء مطمئن، وعايز تستخدمه فعلياً على جهازك، ابعت اسم المشروع أو رابطه واطلب فحصه وشرح خطوات تثبيته المناسبة لمستواك تحديداً — قبل ما تنفذ أي أمر بنفسك</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 9: Stars -->
+  <div class="card">
+    <h2><span class="num">٩</span> النجوم ⭐ — يعني إيه ومش مقياس جودة</h2>
+
+    <p style="margin-bottom:12px">زر الـ Star بجانب أي مشروع له استخدامان مختلفان تماماً، وخلط بينهما هو سبب اللبس:</p>
+
+    <table>
+      <thead><tr><th>الاستخدام</th><th>يعني إيه</th></tr></thead>
+      <tbody>
+        <tr><td><strong class="gold">إشارة مرجعية شخصية</strong> (Bookmark)</td><td>تضغطها عشان تحفظ المشروع في قائمتك الخاصة، لترجع له لاحقاً — بدون أي علاقة بجودته</td></tr>
+        <tr><td><strong class="gold">تقييم فعلي للجودة</strong></td><td>بعض المستخدمين، خاصة التقنيين، يضغطونها فعلاً كتصويت إعجاب بجودة المشروع بعد تجربته أو فحص كوده</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-box" style="margin-top:16px">
+      <p><strong>ليه النجوم مش مقياس دقيق للجودة؟</strong><br>
+      لأن GitHub لا يميّز بين الحالتين أبداً — الرقم اللي تشوفه هو مجموع الاثنين مخلوطين مع بعض. فمشروع ممكن يكون عنده آلاف النجوم لمجرد إنه انتشر وناس كتير حفظته كـ «أرجعله بعدين»، مش لأنه فعلاً أفضل من مشروع تاني عنده نجوم أقل. <strong>لو محمد ضغط نجمة على مشروع عشان يحفظه في حسابه، فده تصرف طبيعي مية بالمية، ولا يعني إطلاقاً إنه بيشهد بجودته.</strong></p>
+    </div>
+
+    <p class="subhead">إزاي تعرف إن المشروع «قوي» فعلاً</p>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">١</span>
+        <div class="step-title">تاريخ آخر تحديث</div>
+        <div class="step-desc">شهور قليلة = لسه حي ومتابَع · سنين = مهجور حتى لو نجومه آلاف</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٢</span>
+        <div class="step-title">عدد المساهمين النشطين</div>
+        <div class="step-desc">أكتر من شخص بانتظام أقوى من نجوم كتير وصاحب واحد مختفي</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٣</span>
+        <div class="step-title">جودة README</div>
+        <div class="step-desc">إيه هو، إزاي تستخدمه، إيه المتطلبات — فاضي = ضعف</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٤</span>
+        <div class="step-title">الرد على Issues</div>
+        <div class="step-desc">صاحبه بيرد ويحل، حتى لو Issues كتير، أقوى من صمت تام</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٥</span>
+        <div class="step-title">وجود License</div>
+        <div class="step-desc">مؤشر إضافي على جدية المشروع والتزامه بقواعد واضحة</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>مثال عملي:</strong> مشروع مثل PDFCraft (أداة مجانية مفتوحة المصدر لمعالجة ملفات PDF) يُقيَّم بالنظر إلى تحديثاته المتكررة، ووجود توثيق واضح، ووجود ترخيص معلن — وليس فقط بعدد نجومه.
+    </div>
+  </div>
+
+  <!-- SECTION 10: How to use a project -->
+  <div class="card">
+    <h2><span class="num">١٠</span> إزاي تستخدم مشروع حد تاني</h2>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">١</span>
+        <div class="step-title">اقرأ README</div>
+        <div class="step-desc">بالكامل قبل أي حاجة — هو دليل الاستخدام</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٢</span>
+        <div class="step-title">تحقق من المتطلبات</div>
+        <div class="step-desc">أحياناً المشروع محتاج برامج معينة مثبتة مسبقاً</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٣</span>
+        <div class="step-title">حمّل المشروع</div>
+        <span class="step-cmd">Clone</span>
+        <div class="step-desc">أو نزّل نسخة مضغوطة لو مفيش حساب GitHub</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٤</span>
+        <div class="step-title">اتبع خطوات التشغيل</div>
+        <div class="step-desc">المذكورة في README بالترتيب</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>مثال عملي:</strong> مشروع PDFCraft (أداة تعديل ملفات PDF مفتوحة المصدر) يوضح فكرة الاستخدام: بيوفر ملف README يشرح كيفية تحميله محلياً وتشغيله، بدون الحاجة لرفع ملفاتك الشخصية لأي خادم خارجي — مثال جيد على مشروع يشرح بوضوح غرضه وطريقة استخدامه الآمنة.
+    </div>
+  </div>
+
+  <!-- SECTION 11: FAQ + summary -->
+  <div class="card">
+    <h2><span class="num">١١</span> أسئلة شائعة</h2>
+
+    <table>
+      <thead><tr><th>السؤال</th><th>الإجابة</th></tr></thead>
+      <tbody>
+        <tr><td>هل أحتاج حساباً على GitHub لتصفح المشاريع؟</td><td>لا، التصفح والقراءة متاحان للجميع. الحساب مطلوب فقط للتفاعل (نجمة، تعليق، رفع مشروع)</td></tr>
+        <tr><td>هل حسابي الخاص يعني أن كل مشاريعي خاصة تلقائياً؟</td><td>لا. كل Repository له إعداد مستقل (Public أو Private) من داخل Settings الخاصة به</td></tr>
+        <tr><td>هل قراءة الكود على الموقع تُشغّله؟</td><td>لا، القراءة فقط لا تُشغّل أي شيء أبداً</td></tr>
+        <tr><td>ما الفرق بين Fork وClone؟</td><td>Fork ينسخ المشروع إلى حسابك على GitHub نفسه. Clone ينزّل نسخة على جهازك الشخصي</td></tr>
+        <tr><td>هل يمكنني التراجع عن تعديل بعد حفظه؟</td><td>نعم، بفضل تاريخ الـ Commits تقدر ترجع لأي نسخة سابقة من المشروع</td></tr>
+        <tr><td>ما معنى مشروع «مفتوح المصدر»؟</td><td>يعني أن كوده مرئي للجميع، ويمكن لأي شخص فحصه أو المساهمة فيه</td></tr>
+        <tr><td>كيف أعرف أن مشروعاً موثوق؟</td><td>لا يوجد مؤشر واحد كافٍ — اجمع بين: النشاط الحديث، عدد المساهمين، جودة التوثيق، ووجود ترخيص واضح</td></tr>
+        <tr><td>هل الملفات النصية (مثل README) تحمل مخاطر؟</td><td>لا، الملفات النصية البسيطة (Markdown) لا تنفذ أي كود بحكم كونها نصاً للقراءة فقط</td></tr>
+        <tr><td>ما الفرق بين Issue وPull Request؟</td><td>Issue هو بلاغ أو اقتراح. Pull Request هو تعديل فعلي جاهز، مُقترح للدمج في المشروع</td></tr>
+        <tr><td>هل يمكنني تحويل مشروع Public إلى Private لاحقاً؟</td><td>نعم، من تبويب Settings داخل المشروع، في أي وقت</td></tr>
+      </tbody>
+    </table>
+
+    <p class="subhead">الخلاصة والنصائح النهائية</p>
+    <div class="rule-box">
+      <p>
+        — اقرأ ملف README دائماً قبل استخدام أي مشروع<br>
+        — لا تحكم على مشروع بعدد نجومه فقط — انظر للنشاط والتوثيق والترخيص<br>
+        — التصفح والقراءة آمنان دائماً؛ الحذر مطلوب فقط عند تشغيل كود فعلي على جهازك<br>
+        — تحقق من إعداد الخصوصية (Public/Private) لكل مشروع تنشئه بنفسك من Settings
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 12: Summary -->
+  <div class="card">
+    <h2><span class="num">١٢</span> الصورة الكاملة دفعة واحدة</h2>
+
+    <div class="flow" style="flex-direction:column; align-items:flex-start; gap:8px">
+      <div style="display:flex; align-items:center; gap:12px; width:100%">
+        <div class="flow-box" style="min-width:160px; text-align:center">
+          <span class="label">١ — راجع</span>
+          <span class="name" style="font-family:monospace; font-size:0.85rem">git status</span>
+        </div>
+        <span style="color:#7A88A8; font-size:0.85rem">← كشف حساب: شوف إيه اللي اتغير</span>
+      </div>
+      <div style="color:#B8922A; padding-right:72px; font-size:1.2rem">↓</div>
+      <div style="display:flex; align-items:center; gap:12px; width:100%">
+        <div class="flow-box" style="min-width:160px; text-align:center">
+          <span class="label">٢ — وافق</span>
+          <span class="name" style="font-family:monospace; font-size:0.85rem">git commit</span>
+        </div>
+        <span style="color:#7A88A8; font-size:0.85rem">← لقطة محفوظة في تاريخ المشروع محلياً</span>
+      </div>
+      <div style="color:#B8922A; padding-right:72px; font-size:1.2rem">↓</div>
+      <div style="display:flex; align-items:center; gap:12px; width:100%">
+        <div class="flow-box" style="min-width:160px; text-align:center">
+          <span class="label">٣ — ارفع</span>
+          <span class="name" style="font-family:monospace; font-size:0.85rem">git push</span>
+        </div>
+        <span style="color:#7A88A8; font-size:0.85rem">← اللقطة تروح GitHub — نسخة احتياطية</span>
+      </div>
+      <div style="color:#B8922A; padding-right:72px; font-size:1.2rem">↓</div>
+      <div style="display:flex; align-items:center; gap:12px; width:100%">
+        <div class="flow-box" style="min-width:160px; text-align:center">
+          <span class="label">٤ — طبّق</span>
+          <span class="name" style="font-family:monospace; font-size:0.85rem">./deploy.sh</span>
+        </div>
+        <span style="color:#7A88A8; font-size:0.85rem">← الكود ينتقل للسيرفر ويشتغل فعلاً</span>
+      </div>
+    </div>
+
+    <div class="tip" style="margin-top:24px">
+      <strong>القاعدة الذهبية:</strong>
+      دايماً <code>git status</code> الأول — لو الملفات منطقية ومتوقعة، وافق. لو في أي ملف غريب أو مش متوقع — ارفض واسأل.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
