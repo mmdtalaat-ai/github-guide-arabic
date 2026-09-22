@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Git & GitHub — الشرح الكامل</title>
+<title>Git & GitHub — الدليل الشامل للمبتدئين</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
 
@@ -349,7 +349,7 @@
 <body>
 <div class="container">
 
-  <h1>Git & GitHub — الدليل الكامل لمحمد</h1>
+  <h1>Git & GitHub — الدليل الشامل للمبتدئين</h1>
 
   <!-- SECTION 1: What is Git / GitHub -->
   <div class="card">
@@ -380,16 +380,16 @@
       </div>
       <div class="arrow">←</div>
       <div class="flow-box">
-        <span class="label">على السيرفر</span>
-        <span class="name">Hetzner</span>
-        <span class="cmd">بيشغّل الكود الفعلي</span>
+        <span class="label">لو عندك مشروع شغّال</span>
+        <span class="name">سيرفرك</span>
+        <span class="cmd">بيشغّل الكود الفعلي أمام المستخدمين</span>
       </div>
     </div>
 
     <div class="rule-box" style="margin-top:16px">
       <p><strong>Git</strong> = مؤرشيف محلي — يحفظ كل تغيير في ملفاتك على جهازك<br>
       <strong>GitHub</strong> = خزنة سحابية — نسخة احتياطية على الإنترنت بإمكانية العودة لأي نقطة<br>
-      <strong>السيرفر (Hetzner)</strong> = المكان اللي الكود بيشتغل فيه فعلاً أمام المستخدمين</p>
+      <strong>السيرفر</strong> = لو مشروعك موقع أو تطبيق شغّال، ده المكان اللي الكود بيشتغل فيه فعلاً — أياً كان مزوّد الاستضافة اللي بتستخدمه</p>
     </div>
   </div>
 
@@ -451,7 +451,7 @@
 
   <!-- SECTION 5: The 4 Commands -->
   <div class="card">
-    <h2><span class="num">٥</span> الأوامر الأربعة اللي بيستخدمها محمد فعلياً</h2>
+    <h2><span class="num">٥</span> الأوامر الأربعة الأساسية في سير العمل اليومي</h2>
 
     <div class="commit-flow">
       <div class="commit-step">
@@ -477,14 +477,13 @@
       <div class="step-arrow">←</div>
       <div class="commit-step">
         <span class="step-num">الخطوة ٤</span>
-        <div class="step-title">deploy</div>
-        <span class="step-cmd">./deploy.sh</span>
-        <div class="step-desc">«التطبيق الفعلي» — يسحب الكود من GitHub وينقله للسيرفر ليشتغل</div>
+        <div class="step-title">النشر (Deploy)</div>
+        <div class="step-desc">خطوة اختيارية حسب مشروعك — تطبيق آخر تحديث فعلياً على السيرفر اللي بيشتغل عليه موقعك أو تطبيقك</div>
       </div>
     </div>
 
     <div class="tip">
-      <strong>تشبيه بسيط:</strong> تخيل مشروع تصوير — git status = شوف الصور اللي التقطتها | commit = اختار صورة وحفظها | push = ارفعها على Lightroom Cloud | deploy = اطبعها للعميل
+      <strong>تشبيه بسيط:</strong> تخيل مشروع تصوير — git status = شوف الصور اللي التقطتها | commit = اختار صورة وحفظها | push = ارفعها على مساحة تخزين سحابية | النشر = اطبعها للعميل
     </div>
   </div>
 
@@ -492,7 +491,7 @@
   <div class="card">
     <h2><span class="num">٦</span> الأرقام الخضرا والحمرا — معناها إيه؟</h2>
 
-    <p style="margin-bottom:14px; color:#7A88A8; font-size:0.9rem">اللي بتشوفه أسفل كل سطر في Claude Code أو Terminal بيبدو كده:</p>
+    <p style="margin-bottom:14px; color:#7A88A8; font-size:0.9rem">اللي بتشوفه أسفل كل سطر في أدوات الذكاء الاصطناعي البرمجية (زي Claude Code أو Cursor أو GitHub Copilot) أو في الـ Terminal العادي بيبدو كده:</p>
 
     <div class="diff-demo">
       <div class="diff-line">
@@ -533,12 +532,12 @@
         <tr>
           <td><span class="added" style="font-family:monospace;font-size:1rem">+45</span></td>
           <td>عدد الأسطر اللي <strong>أُضيفت</strong> أو تعدّلت في الملف</td>
-          <td>كلود أضاف 45 سطر جديد</td>
+          <td>الأداة أضافت 45 سطر جديد</td>
         </tr>
         <tr>
           <td><span class="removed" style="font-family:monospace;font-size:1rem">-12</span></td>
           <td>عدد الأسطر اللي <strong>اتحذفت</strong> أو استُبدلت</td>
-          <td>كلود شال 12 سطر قديم</td>
+          <td>الأداة شالت 12 سطر قديم</td>
         </tr>
         <tr>
           <td><span class="neutral" style="font-family:monospace;font-size:1rem">−</span> (ناقص)</td>
@@ -559,7 +558,7 @@
     <h2><span class="num">٧</span> امتى توافق وامتى ترفض؟</h2>
 
     <div class="decision">
-      <div class="q">📋 كلود كود بيطلب commit — توافق ولا ترفض؟</div>
+      <div class="q">📋 أداة الذكاء الاصطناعي بتطلب commit — توافق ولا ترفض؟</div>
       <div class="decision-row">
         <div class="yes-box">
           <span class="badge">✓ وافق</span>
@@ -577,17 +576,17 @@
             — ملفات غير متوقعة في git status<br>
             — رسالة الـ commit مش واضحة<br>
             — أي تعديل على ملفات .env أو secrets<br>
-            — بعد session لم تراجع فيها الكود<br>
-            — كلود بيقترح commit بدون طلب منك
+            — بعد جلسة عمل لم تراجع فيها الكود<br>
+            — الأداة بتقترح commit بدون طلب منك
           </p>
         </div>
       </div>
     </div>
 
     <div class="rule-box" style="margin-top:14px">
-      <p><strong>إجابة سؤالك الأساسي:</strong><br>
+      <p><strong>إجابة السؤال الأساسي:</strong><br>
       «لو التعديل مسموح فليه أرفض من البداية؟»<br><br>
-      الرفض مش عن التعديل نفسه — هو عن <strong>التوقيت والسياق</strong>. القاعدة في CLAUDE.md عندك موجودة عشان كلود محتاج <em>موافقتك</em> قبل ما يسجّل أي لقطة في تاريخ المشروع. لو وافقت على commit وفيه ملفات غلط أو رسالة مش دقيقة — التاريخ بيتسجل ومش ممكن تمحيه من GitHub بسهولة. الـ commit هو «وثيقة رسمية» في سجل المشروع.</p>
+      الرفض مش عن التعديل نفسه — هو عن <strong>التوقيت والسياق</strong>. أغلب أدوات الذكاء الاصطناعي البرمجية بتحتاج <em>موافقتك</em> قبل ما تسجّل أي لقطة في تاريخ المشروع (وبعضها بيدّيك خيار تحط قواعد ثابتة ليها متعملش بيها من غير سؤال). لو وافقت على commit وفيه ملفات غلط أو رسالة مش دقيقة — التاريخ بيتسجل ومش ممكن تمحيه من GitHub بسهولة. الـ commit هو «وثيقة رسمية» في سجل المشروع.</p>
     </div>
 
     <div class="tabs" style="margin-top:20px">
@@ -600,11 +599,11 @@
       <table>
         <thead><tr><th>الموقف</th><th>قرارك</th><th>السبب</th></tr></thead>
         <tbody>
-          <tr><td>كلود أصلح workflow وطلب commit</td><td class="added">وافق</td><td>تعديل محدد وطلبته أنت</td></tr>
-          <tr><td>كلود يقترح commit فجأة بدون طلب</td><td class="removed">ارفض</td><td>راجع git status الأول</td></tr>
+          <tr><td>الأداة أصلحت workflow وطلبت commit</td><td class="added">وافق</td><td>تعديل محدد وطلبته أنت</td></tr>
+          <tr><td>الأداة تقترح commit فجأة بدون طلب</td><td class="removed">ارفض</td><td>راجع git status الأول</td></tr>
           <tr><td>في git status ملفات .env اتغيرت</td><td class="removed">ارفض فوراً</td><td>Secrets لا تُرفع على GitHub أبداً</td></tr>
-          <tr><td>الـ push مكسور وكلود يقترح force push</td><td class="removed">ارفض</td><td>force push يمسح تاريخ الريبو</td></tr>
-          <tr><td>إضافة agent جديد وكلود أنهى الكود</td><td class="added">وافق</td><td>بعد مراجعة git status</td></tr>
+          <tr><td>الـ push مكسور والأداة تقترح force push</td><td class="removed">ارفض</td><td>force push يمسح تاريخ الريبو</td></tr>
+          <tr><td>إضافة ميزة جديدة والأداة أنهت الكود</td><td class="added">وافق</td><td>بعد مراجعة git status</td></tr>
         </tbody>
       </table>
     </div>
@@ -612,7 +611,7 @@
     <div id="t2" class="tab-content">
       <div class="rule-box">
         <p><strong>لو رفضت — إيه اللي بيحصل؟</strong><br><br>
-        لا شيء يضيع. التعديلات موجودة على جهازك (أو السيرفر) لكنها <em>مش مسجّلة</em> في تاريخ Git. كلود ممكن يعيد نفس العملية أو يكمّل التعديل وبعدين تطلب commit لما تكون مستعد.<br><br>
+        لا شيء يضيع. التعديلات موجودة على جهازك (أو السيرفر) لكنها <em>مش مسجّلة</em> في تاريخ Git. الأداة ممكن تعيد نفس العملية أو تكمّل التعديل وبعدين تطلب commit لما تكون مستعد.<br><br>
         <strong>لو وافقت على commit غلط — إيه اللي بيحصل؟</strong><br><br>
         اللقطة اتسجلت في التاريخ. ممكن تعملها undo بـ <code>git revert</code> لكنها بتضيف commit جديد. مش نهاية العالم — لكن بيعقّد السجل.</p>
       </div>
@@ -638,9 +637,9 @@
             <td>مبتدئ → متوسط</td>
           </tr>
           <tr>
-            <td><strong>Fireship — Git in 100 Seconds</strong><br>YouTube</td>
-            <td>فيديو قصير إنجليزي</td>
-            <td>مراجعة سريعة</td>
+            <td><strong>GitHub Docs</strong><br><code>docs.github.com</code></td>
+            <td>التوثيق الرسمي الشامل</td>
+            <td>كل المستويات</td>
           </tr>
         </tbody>
       </table>
@@ -720,7 +719,7 @@
     <p class="subhead">قبل إضافة أي مشروع جديد مستقبلاً</p>
     <ol>
       <li>طبّق الخطوات الستة اللي فوق (README، تاريخ التحديث، Commits، License، Issues)</li>
-      <li>لو كل شيء مطمئن، وعايز تستخدمه فعلياً على جهازك، ابعت اسم المشروع أو رابطه واطلب فحصه وشرح خطوات تثبيته المناسبة لمستواك تحديداً — قبل ما تنفذ أي أمر بنفسك</li>
+      <li>لو كل شيء مطمئن، وعايز تستخدمه فعلياً على جهازك، اسأل أي مساعد تقني تثق فيه عن خطوات تثبيته المناسبة لمستواك تحديداً — قبل ما تنفذ أي أمر بنفسك</li>
     </ol>
   </div>
 
@@ -740,7 +739,7 @@
 
     <div class="rule-box" style="margin-top:16px">
       <p><strong>ليه النجوم مش مقياس دقيق للجودة؟</strong><br>
-      لأن GitHub لا يميّز بين الحالتين أبداً — الرقم اللي تشوفه هو مجموع الاثنين مخلوطين مع بعض. فمشروع ممكن يكون عنده آلاف النجوم لمجرد إنه انتشر وناس كتير حفظته كـ «أرجعله بعدين»، مش لأنه فعلاً أفضل من مشروع تاني عنده نجوم أقل. <strong>لو محمد ضغط نجمة على مشروع عشان يحفظه في حسابه، فده تصرف طبيعي مية بالمية، ولا يعني إطلاقاً إنه بيشهد بجودته.</strong></p>
+      لأن GitHub لا يميّز بين الحالتين أبداً — الرقم اللي تشوفه هو مجموع الاثنين مخلوطين مع بعض. فمشروع ممكن يكون عنده آلاف النجوم لمجرد إنه انتشر وناس كتير حفظته كـ «أرجعله بعدين»، مش لأنه فعلاً أفضل من مشروع تاني عنده نجوم أقل. <strong>لو انت ضغطت نجمة على مشروع عشان تحفظه في حسابك، فده تصرف طبيعي مية بالمية، ولا يعني إطلاقاً إنك بتشهد بجودته.</strong></p>
     </div>
 
     <p class="subhead">إزاي تعرف إن المشروع «قوي» فعلاً</p>
@@ -778,7 +777,7 @@
     </div>
 
     <div class="tip">
-      <strong>مثال عملي:</strong> مشروع مثل PDFCraft (أداة مجانية مفتوحة المصدر لمعالجة ملفات PDF) يُقيَّم بالنظر إلى تحديثاته المتكررة، ووجود توثيق واضح، ووجود ترخيص معلن — وليس فقط بعدد نجومه.
+      <strong>مثال افتراضي:</strong> تخيّل أداة بسيطة مفتوحة المصدر لتحويل الصور بين الصيغ المختلفة — تُقيَّم بالنظر إلى تحديثاتها المتكررة، ووجود توثيق واضح، ووجود ترخيص معلن — وليس فقط بعدد نجومها.
     </div>
   </div>
 
@@ -814,7 +813,7 @@
     </div>
 
     <div class="tip">
-      <strong>مثال عملي:</strong> مشروع PDFCraft (أداة تعديل ملفات PDF مفتوحة المصدر) يوضح فكرة الاستخدام: بيوفر ملف README يشرح كيفية تحميله محلياً وتشغيله، بدون الحاجة لرفع ملفاتك الشخصية لأي خادم خارجي — مثال جيد على مشروع يشرح بوضوح غرضه وطريقة استخدامه الآمنة.
+      <strong>مثال افتراضي:</strong> أداة مفتوحة المصدر لتعديل ملفات نصوص توضح فكرة الاستخدام: بتوفر ملف README يشرح كيفية تحميلها محلياً وتشغيلها، بدون الحاجة لرفع ملفاتك الشخصية لأي خادم خارجي — مثال جيد على مشروع يشرح بوضوح غرضه وطريقة استخدامه الآمنة.
     </div>
   </div>
 
@@ -849,9 +848,170 @@
     </div>
   </div>
 
-  <!-- SECTION 12: Summary -->
+  <!-- SECTION 12: Creating a GitHub account -->
   <div class="card">
-    <h2><span class="num">١٢</span> الصورة الكاملة دفعة واحدة</h2>
+    <h2><span class="num">١٢</span> إنشاء حساب GitHub من الصفر</h2>
+
+    <p style="margin-bottom:12px">أول خطوة قبل أي حاجة — لازم يكون عندك حساب:</p>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">١</span>
+        <div class="step-title">ادخل صفحة التسجيل</div>
+        <span class="step-cmd">github.com/signup</span>
+        <div class="step-desc">من المتصفح مباشرة</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٢</span>
+        <div class="step-title">اسم المستخدم</div>
+        <div class="step-desc">بسيط، بلا مسافات، سهل التذكر — ده هوية حسابك العلنية</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٣</span>
+        <div class="step-title">البريد والباسورد</div>
+        <div class="step-desc">بريد فعّال تقدر توصله — GitHub بيستخدمه في كل تواصل معاك</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٤</span>
+        <div class="step-title">تأكيد البريد</div>
+        <div class="step-desc">رسالة فيها رمز أو رابط تفعيل — لازم تأكدها عشان الحساب يشتغل</div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <p><strong>لو رسالة التأكيد ما وصلتش:</strong> افحص مجلد Spam الأول، ولو مفيش حاجة استنى دقيقة واحدة وبعدين اضغط إعادة الإرسال. بعد التفعيل، ارجع لصفحة الدخول العادية وسجّل بالبريد والباسورد.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 13: Creating a repo from scratch -->
+  <div class="card">
+    <h2><span class="num">١٣</span> إنشاء أول Repository من الصفر</h2>
+
+    <p style="margin-bottom:12px">الـ Repository هو مجلد المشروع الأساسي (تعريفه الكامل في قاموس المصطلحات فوق). إزاي تنشئ واحد جديد:</p>
+
+    <div class="commit-flow">
+      <div class="commit-step">
+        <span class="step-num">١</span>
+        <div class="step-title">زرار New</div>
+        <div class="step-desc">من أي صفحة على GitHub — عادة أيقونة + فوق يمين الشاشة</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٢</span>
+        <div class="step-title">اسم المشروع</div>
+        <span class="step-cmd">Repository name</span>
+        <div class="step-desc">يفضَّل بلا مسافات (استخدم - بدلها)</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٣</span>
+        <div class="step-title">وصف اختياري</div>
+        <span class="step-cmd">Description</span>
+        <div class="step-desc">جملة بسيطة توضح هدف المشروع</div>
+      </div>
+      <div class="step-arrow">←</div>
+      <div class="commit-step">
+        <span class="step-num">٤</span>
+        <div class="step-title">مستوى الرؤية</div>
+        <div class="step-desc">Public أو Private — تقدر تغيّره لاحقاً من Settings</div>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>المستوى</th><th>مين يشوفه</th></tr></thead>
+      <tbody>
+        <tr><td><strong class="gold">Public (عام)</strong></td><td>أي حد على الإنترنت — مناسب لمشروع تحب تعرضه (زي السيرة الذاتية التقنية أو مشروع مفتوح المصدر)</td></tr>
+        <tr><td><strong class="gold">Private (خاص)</strong></td><td>أنت بس (أو اللي تدعوهم تحديداً) — مناسب للمشاريع الشخصية أو اللي لسه قيد البناء</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip">
+      بعد الضغط على <strong>Create repository</strong> المشروع بيتفتح فوراً وفاضي — تقدر ترفعله ملفات مباشرة بنفس خطوات الرفع اللي شرحناها قبل كده (تبويب <code>Code</code> ← <code>+</code> ← Upload files).
+    </div>
+  </div>
+
+  <!-- SECTION 14: 2FA -->
+  <div class="card">
+    <h2><span class="num">١٤</span> حماية حسابك — المصادقة الثنائية</h2>
+
+    <div class="rule-box">
+      <p><strong>خطوة لا غنى عنها.</strong> بدونها، أي حد يعرف باسوردك (لو اتسرّب من موقع تاني بتستخدم نفس الباسورد فيه مثلاً) يقدر يدخل حسابك مباشرة. المصادقة الثنائية (2FA) بتضيف طبقة حماية تانية غير الباسورد — عادة رمز مؤقت من تطبيق على موبايلك.</p>
+    </div>
+
+    <p class="subhead">إزاي تفعّلها</p>
+    <p style="margin-bottom:12px">من صفحة حسابك: <code>Settings</code> ← <code>Password and authentication</code> ← <code>Two-factor authentication</code> ← فعّلها واتبع الخطوات على الشاشة.</p>
+
+    <div class="rule-box">
+      <p><strong>قاعدة ذهبية:</strong> وقت التفعيل، GitHub هيديك مجموعة <strong>Recovery Codes</strong> (أكواد استرداد). احتفظ بيها في مكان آمن جداً بعيد عن جهازك أو موبايلك — لو فقدت الموبايل وماكنتش محتفظ بيها، ممكن تفقد الوصول لحسابك للأبد.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 15: Installing Git locally -->
+  <div class="card">
+    <h2><span class="num">١٥</span> تثبيت Git على جهازك وربط الترمينال بحسابك</h2>
+
+    <p style="margin-bottom:12px">لحد دلوقتي كل اللي شرحناه بيتم من المتصفح مباشرة. لو حبيت تشتغل زي المحترفين (رفع وتعديل بسرعة من الترمينال)، محتاج تثبت Git على جهازك الأول:</p>
+
+    <table>
+      <thead><tr><th>النظام</th><th>الخطوات</th></tr></thead>
+      <tbody>
+        <tr><td><strong class="gold">macOS</strong></td><td>افتح Terminal واستخدم أداة Homebrew بكتابة الأمر: <code>brew install git</code></td></tr>
+        <tr><td><strong class="gold">Windows</strong></td><td>روح للموقع الرسمي وابحث عن Git for Windows، حمّل الملف التنفيذي وثبّته بالطريقة المعتادة</td></tr>
+      </tbody>
+    </table>
+
+    <p class="subhead">ربط الجهاز بهويتك</p>
+    <p style="margin-bottom:10px">بعد التثبيت، Git لازم يعرف مين انت — افتح موجّه الأوامر واكتب:</p>
+    <div class="diff-demo">
+      <div class="diff-line"><span class="diff-code neutral">git config --global user.name "اسمك"</span></div>
+      <div class="diff-line"><span class="diff-code neutral">git config --global user.email "بريدك@example.com"</span></div>
+    </div>
+
+    <div class="rule-box">
+      <p><strong>انتبه:</strong> لازم يكون الإيميل هنا هو نفسه الإيميل المرتبط بحسابك على GitHub بالظبط. ده اللي بيضمن ظهور مساهماتك (المربعات الخضرا) بشكل صحيح على بروفايلك.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 16: Alternative tools -->
+  <div class="card">
+    <h2><span class="num">١٦</span> أدوات بديلة تسهّل حياتك — بلا أوامر معقدة</h2>
+
+    <p style="margin-bottom:12px">مش لازم تشتغل بالأوامر النصية دايماً. فيه أدوات بواجهات رسومية بتنفذ نفس الحاجة:</p>
+
+    <table>
+      <thead><tr><th>الأداة</th><th>مناسبة لمين</th></tr></thead>
+      <tbody>
+        <tr><td><strong class="gold">Terminal</strong></td><td>للمحترفين اللي عايزين فهم عميق وتحكّم كامل عبر الأوامر النصية</td></tr>
+        <tr><td><strong class="gold">GitHub Desktop</strong></td><td>واجهة رسومية بسيطة من GitHub نفسها — بتنفذ status/commit/push بضغطة زر بدل كتابة أوامر</td></tr>
+        <tr><td><strong class="gold">VS Code</strong></td><td>محرر أكواد فيه أدوات Git مدمجة جواه مباشرة — تعديل ورفع من نفس الشاشة</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip">
+      <strong>ملاحظة:</strong> أدوات الذكاء الاصطناعي البرمجية زي Claude Code وCursor وGitHub Copilot بتغطي دور الترمينال بالكامل — بتشتغل بنفس الأوامر دي جواها، وبتوريك الأرقام الخضرا/الحمرا زي ما شرحنا في القسم الخاص بيها. الأدوات اللي فوق دي بديلة لمين عايز يشتغل بنفسه مباشرة بلا مساعد ذكاء اصطناعي.
+    </div>
+  </div>
+
+  <!-- SECTION 17: More troubleshooting -->
+  <div class="card">
+    <h2><span class="num">١٧</span> أخطاء شائعة إضافية وحلولها السريعة</h2>
+
+    <table>
+      <thead><tr><th>المشكلة</th><th>الحل</th></tr></thead>
+      <tbody>
+        <tr><td>نسيت جهاز المصادقة الثنائية ومش قادر تسجّل دخول</td><td>استخدم Recovery Codes اللي حفظتها وقت التفعيل — لو فقدتها كلها، ممكن تفقد الحساب نهائياً</td></tr>
+        <tr><td>المربعات الخضرا (المساهمات) مش بتظهر رغم إنك بترفع فعلاً</td><td>الإيميل في <code>git config</code> على جهازك مختلف عن إيميل حسابك على GitHub — وحّدهما بنفس الأمر اللي شرحناه فوق</td></tr>
+        <tr><td>ظهور رسالة <code>Push Rejected</code> وقت الرفع من الترمينال</td><td>غالباً GitHub بقى برفض تسجيل الدخول بالباسورد العادي عبر الأوامر — استخدم رمز وصول شخصي (Personal Access Token) بدلها، أو سجّل دخولك من جديد</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 18: Summary -->
+  <div class="card">
+    <h2><span class="num">١٨</span> الصورة الكاملة دفعة واحدة</h2>
 
     <div class="flow" style="flex-direction:column; align-items:flex-start; gap:8px">
       <div style="display:flex; align-items:center; gap:12px; width:100%">
@@ -881,9 +1041,9 @@
       <div style="display:flex; align-items:center; gap:12px; width:100%">
         <div class="flow-box" style="min-width:160px; text-align:center">
           <span class="label">٤ — طبّق</span>
-          <span class="name" style="font-family:monospace; font-size:0.85rem">./deploy.sh</span>
+          <span class="name" style="font-family:monospace; font-size:0.85rem">النشر</span>
         </div>
-        <span style="color:#7A88A8; font-size:0.85rem">← الكود ينتقل للسيرفر ويشتغل فعلاً</span>
+        <span style="color:#7A88A8; font-size:0.85rem">← الكود ينتقل للسيرفر ويشتغل فعلاً (لو مشروعك محتاج ده)</span>
       </div>
     </div>
 
